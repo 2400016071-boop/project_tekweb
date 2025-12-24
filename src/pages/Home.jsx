@@ -1,6 +1,6 @@
-import Navbar from "../components/public/Navbar";
-import EventCard from "../components/public/EventCard";
-import Footer from "../components/public/Footer";
+import Navbar from "../components/user/Navbar";
+import EventCard from "../components/user/EventCard";
+import Footer from "../components/user/Footer";
 import { useEvents } from "../hooks/useEvents";
 
 export default function Home() {
