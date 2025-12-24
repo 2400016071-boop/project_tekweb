@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import Navbar from "../components/public/Navbar";
-import Footer from "../components/public/Footer";
+import Navbar from "../components/user/Navbar";
+import Footer from "../components/user/Footer";
 import { useEvents } from "../hooks/useEvents";
 
 export default function EventDetail() {
