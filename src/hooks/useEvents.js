@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const STORAGE_KEY = "events_data";
 
 export const useEvents = () => {
   const [events] = useState([
