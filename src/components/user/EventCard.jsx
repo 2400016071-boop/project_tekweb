@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 
 export default function EventCard({ event }) {
+  const whatsappNumber = "6281234567890"; 
+  const message = `Halo, saya mau beli tiket event ${event.name}`;
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
   return (
     <Link
       to={`/events/${event.id}`}
       className="group block bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition"
     >
-      {/* IMAGE (PERSEGI PANJANG, TIDAK GEPENG) */}
+      {/* IMAGE */}
       <div className="relative h-40 overflow-hidden">
         <img
           src={event.image}
@@ -29,14 +33,17 @@ export default function EventCard({ event }) {
           Rp {event.price.toLocaleString("id-ID")}
         </p>
 
-        {/* BUTTON */}
-        <button
-          onClick={(e) => e.preventDefault()}
-          className="w-full text-sm bg-[#6b4226] text-white py-2 rounded-md
+        {/* BUTTON WHATSAPP */}
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="block text-center w-full text-sm bg-[#6b4226] text-white py-2 rounded-md
                      hover:bg-[#56321c] transition"
         >
           Beli Tiket
-        </button>
+        </a>
       </div>
     </Link>
   );
