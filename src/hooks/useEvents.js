@@ -20,7 +20,7 @@ export const useEvents = () => {
       id: 3,
       name: "Rock Festival",
       price: 600000,
-      image: "https://images.unsplash.com/photo-1497032205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-14970 32205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: 4,
