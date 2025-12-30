@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-
-const STORAGE_KEY = "events_data";
+import { useState } from "react";
 
 export const useEvents = () => {
   const [events] = useState([
@@ -14,13 +12,13 @@ export const useEvents = () => {
       id: 2,
       name: "Tech Conference",
       price: 500000,
-      image: "https://images.unsplash.com/photo-1515165562835-c4c47a2a7b92?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: 3,
       name: "Rock Festival",
       price: 600000,
-      image: "https://images.unsplash.com/photo-14970 32205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80",
+      image: "https://images.unsplash.com/photo-1497032205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: 4,
