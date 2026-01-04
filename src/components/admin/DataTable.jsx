@@ -10,19 +10,22 @@ export default function DataTable({ events, onDelete }) {
   };
 
   return (
-    <div className="bg-white rounded shadow">
-      <div className="p-4 flex justify-between border-b">
-        <h2 className="font-semibold">Data Event</h2>
+    <div className="bg-white rounded-lg shadow">
+      <div className="p-4 flex justify-between items-center border-b border-[#E6D5C3]">
+        <h2 className="font-semibold text-[#5C3A21]">
+          Data Event
+        </h2>
+
         <button
           onClick={() => navigate("/admin/events/create")}
-          className="bg-green-600 text-white px-4 py-2 rounded"
+          className="bg-[#5C3A21] text-white px-4 py-2 rounded hover:bg-[#8B5E3C]"
         >
           + Tambah Event
         </button>
       </div>
 
       <table className="w-full text-sm">
-        <thead className="bg-gray-100">
+        <thead className="bg-[#F3E6DB] text-[#5C3A21]">
           <tr>
             <th className="p-3 text-left">Nama</th>
             <th className="p-3 text-left">Tanggal</th>

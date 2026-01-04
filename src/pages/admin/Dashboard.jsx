@@ -7,7 +7,7 @@ export default function Dashboard() {
   const { events, deleteEvent } = useEvents();
 
   return (
-    <div className="flex min-h-screen bg-brown-100">
+    <div className="flex min-h-screen bg-[#F3E6DB]">
       <AdminSidebar />
 
       <div className="flex-1">
@@ -19,5 +19,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
-
