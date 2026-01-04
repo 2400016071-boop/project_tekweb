@@ -1,19 +1,23 @@
 import AdminHeader from "../../components/admin/AdminHeader";
-import EventForm from "../../components/admin/EventForm";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 import DataTable from "../../components/admin/DataTable";
 import { useEvents } from "../../hooks/useEvents";
 
 export default function Dashboard() {
-  const { events } = useEvents();
+  const { events, deleteEvent } = useEvents(); // ambil deleteEvent
 
   return (
-    <>
-      <AdminHeader />
-      <div className="p-6">
-        <EventForm />
-        <DataTable events={events} />
+    <div className="flex min-h-screen bg-[#F3E6DB]">
+      <AdminSidebar />
+
+      <div className="flex-1">
+        <AdminHeader />
+
+        <div className="p-6">
+          {/* kirim deleteEvent ke DataTable */}
+          <DataTable events={events} onDelete={deleteEvent} />
+        </div>
       </div>
-    </>
+    </div>
   );
 }
-
