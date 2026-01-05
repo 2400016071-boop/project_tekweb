@@ -15,7 +15,7 @@ export default function Home() {
           Event Terbaru
         </h1>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           {events.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
