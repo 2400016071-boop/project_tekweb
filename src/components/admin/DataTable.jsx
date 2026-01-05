@@ -25,6 +25,7 @@ export default function DataTable({ events, onDelete }) {
       <table className="w-full text-sm">
         <thead className="bg-[#F3E6DB] text-[#5C3A21]">
           <tr>
+            <th className="p-3 text-left">Gambar</th>
             <th className="p-3 text-left">Nama</th>
             <th className="p-3 text-left">Tanggal</th>
             <th className="p-3 text-left">Harga</th>
@@ -36,6 +37,9 @@ export default function DataTable({ events, onDelete }) {
         <tbody>
           {events.map((event) => (
             <tr key={event.id} className="border-b">
+              <td className="p-2">
+                <img src={event.image} alt={event.name} className="w-20 h-14 object-cover rounded" />
+              </td>
               <td className="p-3">{event.name}</td>
               <td className="p-3">{event.date}</td>
               <td className="p-3">Rp {event.price.toLocaleString()}</td>
@@ -47,7 +51,6 @@ export default function DataTable({ events, onDelete }) {
                 >
                   Edit
                 </button>
-
                 <button
                   onClick={() => handleDelete(event.id)}
                   className="px-3 py-1 bg-red-600 text-white rounded"
