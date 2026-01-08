@@ -11,21 +11,35 @@ export default function EventCreate() {
     date: "",
     price: "",
     quota: "",
+    location: "",
     image: "",
-    description: "", // 🔹 TAMBAHAN
+    description: "",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // VALIDASI WAJIB
+    if (!form.name || !form.date || !form.location) {
+      alert("Nama, tanggal, dan lokasi wajib diisi");
+      return;
+    }
+
     addEvent({
       name: form.name,
       date: form.date,
       price: Number(form.price),
       quota: Number(form.quota),
-      image: form.image,
-      description: form.description, // 🔹 SIMPAN
+      location: form.location,
+      image:
+        form.image && form.image.trim() !== ""
+          ? form.image
+          : "https://via.placeholder.com/400x250?text=No+Image",
+      description: form.description,
     });
-    navigate("/admin");
+
+    navigate("/admin/dashboard");
+;
   };
 
   return (
@@ -35,7 +49,6 @@ export default function EventCreate() {
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* NAMA */}
         <input
           placeholder="Nama Event"
           className="w-full border px-3 py-2 rounded"
@@ -44,7 +57,6 @@ export default function EventCreate() {
           }
         />
 
-        {/* TANGGAL */}
         <input
           type="date"
           className="w-full border px-3 py-2 rounded"
@@ -53,7 +65,6 @@ export default function EventCreate() {
           }
         />
 
-        {/* HARGA */}
         <input
           type="number"
           placeholder="Harga Tiket"
@@ -63,7 +74,6 @@ export default function EventCreate() {
           }
         />
 
-        {/* KUOTA */}
         <input
           type="number"
           placeholder="Kuota"
@@ -73,16 +83,22 @@ export default function EventCreate() {
           }
         />
 
-        {/* IMAGE */}
         <input
-          placeholder="URL Image"
+          placeholder="Lokasi Event"
+          className="w-full border px-3 py-2 rounded"
+          onChange={(e) =>
+            setForm({ ...form, location: e.target.value })
+          }
+        />
+
+        <input
+          placeholder="URL Image (opsional)"
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, image: e.target.value })
           }
         />
 
-        {/* 🔹 DETAIL / DESKRIPSI EVENT */}
         <textarea
           placeholder="Detail / Deskripsi Event"
           rows="4"
@@ -92,8 +108,7 @@ export default function EventCreate() {
           }
         />
 
-        {/* BUTTON */}
-        <button className="bg-[#5C3A21] text-white px-4 py-2 rounded hover:bg-[#8B5E3C] transition">
+        <button className="w-full bg-[#5C3A21] text-white py-2 rounded hover:bg-[#8B5E3C] transition">
           Simpan Event
         </button>
       </form>

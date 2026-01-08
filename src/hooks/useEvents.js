@@ -5,7 +5,9 @@ const STORAGE_KEY = "events_data";
 export const useEvents = () => {
   const [events, setEvents] = useState([]);
 
-  // LOAD AWAL
+  // ===============================
+  // LOAD DATA AWAL (SIMULASI API)
+  // ===============================
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
 
@@ -25,7 +27,8 @@ export const useEvents = () => {
         location: "Amphitheater Bromo, Jawa Timur",
         description: "Festival musik jazz tahunan dengan latar pegunungan Bromo.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 2,
@@ -37,7 +40,8 @@ export const useEvents = () => {
         location: "Jakarta Convention Center",
         description: "Konferensi teknologi terbesar di Indonesia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 3,
@@ -49,9 +53,10 @@ export const useEvents = () => {
         location: "Stadion GBK Jakarta",
         description: "Tur nasional band legendaris Indonesia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
       },
-      {
+       {
         id: 4,
         name: "Festival Budaya Bali",
         date: "2025-05-15",
@@ -61,7 +66,8 @@ export const useEvents = () => {
         location: "Ubud, Bali",
         description: "Pentas seni dan budaya khas Pulau Dewata.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 5,
@@ -73,7 +79,8 @@ export const useEvents = () => {
         location: "Stadion Internasional Jakarta",
         description: "Konser band internasional Coldplay di Indonesia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 6,
@@ -83,9 +90,11 @@ export const useEvents = () => {
         quota: 200,
         sold: 40,
         location: "Surabaya",
-        description: "Seminar dan expo tentang ekosistem startup digital.",
+        description:
+          "Seminar dan expo tentang ekosistem startup digital.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 7,
@@ -97,7 +106,8 @@ export const useEvents = () => {
         location: "Surabaya Esport Arena",
         description: "Turnamen e-sport terbuka untuk umum.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1553481187-be93c21490a9?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1553481187-be93c21490a9?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 8,
@@ -109,7 +119,8 @@ export const useEvents = () => {
         location: "Bandung Digital Valley",
         description: "Pelatihan React untuk pemula hingga mahir.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1504805572947-34fad45aed93?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 9,
@@ -121,7 +132,8 @@ export const useEvents = () => {
         location: "Yogyakarta",
         description: "Pameran karya fotografer muda Indonesia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 10,
@@ -133,7 +145,8 @@ export const useEvents = () => {
         location: "Solo",
         description: "Konser reuni band Dewa 19.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 11,
@@ -145,7 +158,8 @@ export const useEvents = () => {
         location: "Medan",
         description: "Konser solo penyanyi Tulus.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 12,
@@ -157,7 +171,8 @@ export const useEvents = () => {
         location: "Semarang",
         description: "Live konser Hindia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 13,
@@ -169,7 +184,8 @@ export const useEvents = () => {
         location: "Makassar",
         description: "Festival kuliner dan kopi.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 14,
@@ -181,7 +197,8 @@ export const useEvents = () => {
         location: "Palembang",
         description: "Tur band Noah.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 15,
@@ -193,7 +210,8 @@ export const useEvents = () => {
         location: "Pontianak",
         description: "Konser penyanyi Nadin Amizah.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 16,
@@ -205,7 +223,8 @@ export const useEvents = () => {
         location: "Depok",
         description: "Pentas musik indie terbuka untuk umum.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 17,
@@ -215,9 +234,11 @@ export const useEvents = () => {
         quota: 300,
         sold: 130,
         location: "Bogor",
-        description: "Talkshow mengenai keamanan data dan jaringan.",
+        description:
+          "Talkshow mengenai keamanan data dan jaringan.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 18,
@@ -229,7 +250,8 @@ export const useEvents = () => {
         location: "Jakarta",
         description: "Konser musisi lokal dan nasional.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 19,
@@ -239,9 +261,11 @@ export const useEvents = () => {
         quota: 100,
         sold: 45,
         location: "Yogyakarta",
-        description: "Pemutaran film dan diskusi sineas.",
+        description:
+          "Pemutaran film dan diskusi sineas.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80"
+        image:
+          "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80",
       },
       {
         id: 20,
@@ -253,27 +277,30 @@ export const useEvents = () => {
         location: "Tangerang",
         description: "Workshop data science untuk umum.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
-      }
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      },
     ];
 
     setEvents(initialEvents);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(initialEvents));
   }, []);
 
-  // ===== FUNGSI =====
+  // ===============================
+  // LOGIC API (CRUD) ✅ FIXED
+  // ===============================
 
-  const getEventById = (idParam) => {
-    const numId = Number(idParam);
-    return events.find((e) => numId === e.id);
-  };
+  // READ
+  const getEventById = (id) =>
+    events.find((e) => e.id === Number(id));
 
+  // CREATE
   const addEvent = (event) => {
     const newEvent = {
       ...event,
       id: Date.now(),
       sold: 0,
-      creator: event.creator || "Admin"
+      creator: "Admin",
     };
 
     const updated = [...events, newEvent];
@@ -281,15 +308,19 @@ export const useEvents = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
+  // DELETE
   const deleteEvent = (id) => {
-    const updated = events.filter((e) => e.id !== Number(id));
+    const updated = events.filter(
+      (e) => e.id !== Number(id)
+    );
     setEvents(updated);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
-  const updateEvent = (id, data) => {
+  // UPDATE ✅ TERIMA 1 OBJECT (ANTI ERROR PUTIH)
+  const updateEvent = (updatedEvent) => {
     const updated = events.map((e) =>
-      e.id === Number(id) ? { ...e, ...data } : e
+      e.id === updatedEvent.id ? updatedEvent : e
     );
 
     setEvents(updated);
@@ -301,6 +332,6 @@ export const useEvents = () => {
     getEventById,
     addEvent,
     deleteEvent,
-    updateEvent
+    updateEvent,
   };
 };
