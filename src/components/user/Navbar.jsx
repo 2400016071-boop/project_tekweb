@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import LoginAdminDialog from "@/components/admin/LoginAdminDialog"; // modal login admin
 
 export default function Navbar() {
   return (
@@ -25,12 +26,8 @@ export default function Navbar() {
             className="w-48 px-3 py-1.5 rounded-md text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#F3E6DB]"
           />
 
-          <Link
-            to="/login-admin"
-            className="bg-white text-[#5C3A21] px-4 py-1.5 rounded-md text-sm font-medium hover:bg-[#F3E6DB] transition"
-          >
-            Login Admin
-          </Link>
+          {/* Hanya ganti tombol Login Admin menjadi modal */}
+          <LoginAdminDialog />
 
         </div>
       </div>

@@ -2,11 +2,9 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import EventDetail from "./pages/EventDetail";
-import LoginAdmin from "./pages/LoginAdmin";
 
 import Dashboard from "./pages/admin/Dashboard";
 import EventCreate from "./pages/admin/EventCreate";
-import EventEdit from "./pages/admin/EventEdit";
 
 import AdminRoute from "./components/admin/AdminRoute";
 
@@ -17,12 +15,9 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/events/:id" element={<EventDetail />} />
 
-      {/* LOGIN ADMIN */}
-      <Route path="/login-admin" element={<LoginAdmin />} />
-
       {/* ADMIN (PROTECTED) */}
       <Route
-        path="/admin"
+        path="/admin/dashboard"
         element={
           <AdminRoute>
             <Dashboard />
@@ -35,15 +30,6 @@ function App() {
         element={
           <AdminRoute>
             <EventCreate />
-          </AdminRoute>
-        }
-      />
-
-      <Route
-        path="/admin/events/edit/:id"
-        element={
-          <AdminRoute>
-            <EventEdit />
           </AdminRoute>
         }
       />
