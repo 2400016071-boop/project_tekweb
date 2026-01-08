@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, onOpen }) {
   const whatsappNumber = "6281234567890";
   const message = `Halo, saya mau beli tiket event ${event.name}`;
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -8,9 +8,11 @@ export default function EventCard({ event }) {
   return (
     <div className="col-span-1 bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition flex flex-col">
       
-      {/* LINK KE DETAIL */}
-      <Link to={`/events/${event.id}`} className="group">
-        {/* IMAGE */}
+      {/* CARD / IMAGE → BUKA MODAL */}
+      <div
+        onClick={() => onOpen(event)}
+        className="group cursor-pointer"
+      >
         <div className="relative h-40 overflow-hidden">
           <img
             src={event.image}
@@ -19,7 +21,6 @@ export default function EventCard({ event }) {
           />
         </div>
 
-        {/* CONTENT */}
         <div className="p-4">
           <h2 className="font-semibold text-[#5a3a22] truncate">
             {event.name}
@@ -33,9 +34,9 @@ export default function EventCard({ event }) {
             Rp {event.price.toLocaleString("id-ID")}
           </p>
         </div>
-      </Link>
+      </div>
 
-      {/* BUTTON WHATSAPP */}
+      {/* BUTTON WHATSAPP (TIDAK BUKA MODAL) */}
       <div className="p-4 pt-0 mt-auto">
         <a
           href={whatsappLink}
