@@ -146,3 +146,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ===============================
+   FIX SHADCN / RADIX DIALOG
+   WAJIB AGAR MODAL CENTER
+================================ */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  position: static !important;
+  overflow-x: hidden;
+}
+
+/* Pastikan dialog selalu di tengah layar */
+[data-radix-portal] {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}

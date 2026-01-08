@@ -1,18 +1,21 @@
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
+
 export default function EventForm({ onSubmit, setForm, form }) {
   return (
-    <div className="bg-white p-6 rounded-lg shadow max-w-xl">
+    <div className="bg-background p-6 rounded-lg shadow max-w-xl">
       <h2 className="font-bold text-lg text-[#5C3A21] mb-4">
         Tambah Event
       </h2>
 
       {/* NAMA EVENT */}
-      <div className="mb-3">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           Nama Event
         </label>
-        <input
-          type="text"
-          className="w-full border px-3 py-2 rounded"
+        <Input
+          value={form.name || ""}
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
           }
@@ -20,13 +23,13 @@ export default function EventForm({ onSubmit, setForm, form }) {
       </div>
 
       {/* TANGGAL */}
-      <div className="mb-3">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           Tanggal
         </label>
-        <input
+        <Input
           type="date"
-          className="w-full border px-3 py-2 rounded"
+          value={form.date || ""}
           onChange={(e) =>
             setForm({ ...form, date: e.target.value })
           }
@@ -34,13 +37,13 @@ export default function EventForm({ onSubmit, setForm, form }) {
       </div>
 
       {/* HARGA */}
-      <div className="mb-3">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           Harga
         </label>
-        <input
+        <Input
           type="number"
-          className="w-full border px-3 py-2 rounded"
+          value={form.price || ""}
           onChange={(e) =>
             setForm({ ...form, price: e.target.value })
           }
@@ -48,13 +51,13 @@ export default function EventForm({ onSubmit, setForm, form }) {
       </div>
 
       {/* KUOTA */}
-      <div className="mb-3">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           Kuota
         </label>
-        <input
+        <Input
           type="number"
-          className="w-full border px-3 py-2 rounded"
+          value={form.quota || ""}
           onChange={(e) =>
             setForm({ ...form, quota: e.target.value })
           }
@@ -62,39 +65,38 @@ export default function EventForm({ onSubmit, setForm, form }) {
       </div>
 
       {/* IMAGE */}
-      <div className="mb-3">
+      <div className="mb-4">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           URL Image
         </label>
-        <input
-          type="text"
-          className="w-full border px-3 py-2 rounded"
+        <Input
+          value={form.image || ""}
           onChange={(e) =>
             setForm({ ...form, image: e.target.value })
           }
         />
       </div>
 
-      {/* 🔹 DESKRIPSI EVENT (INI YANG KURANG) */}
-      <div className="mb-4">
+      {/* DESKRIPSI EVENT */}
+      <div className="mb-6">
         <label className="block text-sm font-medium text-[#5C3A21] mb-1">
           Detail / Deskripsi Event
         </label>
-        <textarea
-          rows="4"
-          className="w-full border px-3 py-2 rounded resize-none"
+        <Textarea
+          rows={4}
+          value={form.description || ""}
           onChange={(e) =>
             setForm({ ...form, description: e.target.value })
           }
         />
       </div>
 
-      <button
+      <Button
         onClick={onSubmit}
-        className="bg-[#5C3A21] text-white px-5 py-2 rounded hover:bg-[#8B5E3C] transition"
+        className="bg-[#5C3A21] hover:bg-[#8B5E3C]"
       >
         Simpan
-      </button>
+      </Button>
     </div>
-  );
+  )
 }
