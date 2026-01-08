@@ -3,6 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import EventDetail from "./pages/EventDetail";
 
+// 🔹 TAMBAHAN
+import About from "./pages/About";
+
 import Dashboard from "./pages/admin/Dashboard";
 import EventCreate from "./pages/admin/EventCreate";
 
@@ -13,6 +16,10 @@ function App() {
     <Routes>
       {/* USER */}
       <Route path="/" element={<Home />} />
+
+      {/* 🔹 TAMBAHAN ABOUT */}
+      <Route path="/about" element={<About />} />
+
       <Route path="/events/:id" element={<EventDetail />} />
 
       {/* ADMIN (PROTECTED) */}

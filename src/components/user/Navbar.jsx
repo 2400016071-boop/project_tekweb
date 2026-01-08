@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import LoginAdminDialog from "@/components/admin/LoginAdminDialog"; // modal login admin
+import LoginAdminDialog from "@/components/admin/LoginAdminDialog";
 
-export default function Navbar() {
+export default function Navbar({ onSearch }) { // ⬅️ TAMBAH props
   return (
     <nav className="bg-[#5C3A21] text-white px-6 py-4 shadow">
       <div className="flex items-center justify-between">
@@ -20,13 +20,14 @@ export default function Navbar() {
             About
           </Link>
 
+          {/* 🔍 TAMBAHAN LOGIC SEARCH */}
           <input
             type="text"
             placeholder="Search event..."
+            onChange={(e) => onSearch(e.target.value)} // ⬅️ TAMBAH
             className="w-48 px-3 py-1.5 rounded-md text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#F3E6DB]"
           />
 
-          {/* Hanya ganti tombol Login Admin menjadi modal */}
           <LoginAdminDialog />
 
         </div>
