@@ -73,7 +73,7 @@ export const useEvents = () => {
         location: "Stadion Internasional Jakarta",
         description: "Konser band internasional Coldplay di Indonesia.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 6,
@@ -145,7 +145,7 @@ export const useEvents = () => {
         location: "Medan",
         description: "Konser solo penyanyi Tulus.",
         creator: "Admin",
-        image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 12,
