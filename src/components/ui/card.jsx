@@ -1,15 +1,38 @@
-export function Card({ children, className = "" }) {
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
+export function Card({ className, ...props }) {
   return (
-    <div className={`bg-white shadow rounded-lg ${className}`}>
-      {children}
-    </div>
+    <div
+      className={cn(
+        "rounded-2xl border bg-white text-gray-900 shadow",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
-export function CardContent({ children, className = "" }) {
+export function CardHeader({ className, ...props }) {
   return (
-    <div className={`p-4 ${className}`}>
-      {children}
-    </div>
+    <div
+      className={cn("flex flex-col space-y-1.5 p-6", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardTitle({ className, ...props }) {
+  return (
+    <h3
+      className={cn("text-lg font-semibold leading-none", className)}
+      {...props}
+    />
+  );
+}
+
+export function CardContent({ className, ...props }) {
+  return (
+    <div className={cn("p-6 pt-0", className)} {...props} />
   );
 }

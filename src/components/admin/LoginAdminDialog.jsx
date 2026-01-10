@@ -74,7 +74,7 @@ export default function LoginAdminDialog() {
 
             <Button className="w-full" onClick={handleLogin}>
               Login
-            </Button>
+            </Button>     
           </CardContent>
         </Card>
       </DialogContent>
