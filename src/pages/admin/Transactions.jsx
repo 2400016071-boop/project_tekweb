@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -10,44 +10,10 @@ import {
 import { Button } from "@/components/ui/button";
 import TransactionDetailDialog from "@/components/admin/TransactionDetailDialog";
 
-/* DATA DUMMY */
-const transactionsData = [
-  {
-    id: "TRX001",
-    date: "2025-01-05 10:30",
-    customer: "Andi Pratama",
-    event: "Music Fest 2025",
-    ticket: 2,
-    total: 300000,
-    payment: "Transfer Bank",
-    status: "Berhasil",
-    channel: "WhatsApp",
-  },
-  {
-    id: "TRX002",
-    date: "2025-01-06 13:15",
-    customer: "Siti Aisyah",
-    event: "Tech Conference",
-    ticket: 1,
-    total: 150000,
-    payment: "QRIS",
-    status: "Menunggu",
-    channel: "WhatsApp",
-  },
-  {
-    id: "TRX003",
-    date: "2025-01-06 15:45",
-    customer: "Budi Santoso",
-    event: "Startup Expo",
-    ticket: 3,
-    total: 450000,
-    payment: "E-Wallet",
-    status: "Gagal",
-    channel: "WhatsApp",
-  },
-];
-
 export default function Transactions() {
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -58,32 +24,52 @@ export default function Transactions() {
 
   const PER_PAGE = 6;
 
-  /* FILTER DATA */
-  const filteredData = useMemo(() => {
-    return transactionsData.filter((trx) => {
-      const matchSearch =
-        trx.id.toLowerCase().includes(search.toLowerCase()) ||
-        trx.customer.toLowerCase().includes(search.toLowerCase());
+  /* 🔹 AMBIL DATA DARI BACKEND */
+  useEffect(() => {
+    fetch("http://localhost:3000/api/transactions")
+      .then((res) => res.json())
+      .then((data) => {
+        setTransactions(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
 
-      const trxDate = new Date(trx.date);
+  /* 🔹 FILTER DATA */
+  const filteredData = useMemo(() => {
+    return transactions.filter((trx) => {
+      const matchSearch =
+        trx.transaction_code
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        trx.customer_name
+          .toLowerCase()
+          .includes(search.toLowerCase());
+
+      const trxDate = new Date(trx.created_at);
       const matchStart = startDate ? trxDate >= new Date(startDate) : true;
       const matchEnd = endDate ? trxDate <= new Date(endDate) : true;
 
       return matchSearch && matchStart && matchEnd;
     });
-  }, [search, startDate, endDate]);
+  }, [transactions, search, startDate, endDate]);
 
   const paginatedData = filteredData.slice(
     (page - 1) * PER_PAGE,
     page * PER_PAGE
   );
 
-  const totalPages = Math.ceil(filteredData.length / PER_PAGE);
+  const totalPages = Math.ceil(filteredData.length / PER_PAGE) || 1;
 
-  /* EXPORT CSV */
+  /* 🔹 EXPORT CSV (DATA ASLI) */
   const exportCSV = () => {
-    const header = Object.keys(transactionsData[0]).join(",");
-    const rows = transactionsData
+    if (!transactions.length) return;
+
+    const header = Object.keys(transactions[0]).join(",");
+    const rows = transactions
       .map((trx) => Object.values(trx).join(","))
       .join("\n");
 
@@ -96,6 +82,10 @@ export default function Transactions() {
     a.download = "transactions.csv";
     a.click();
   };
+
+  if (loading) {
+    return <p className="p-6">Memuat data transaksi...</p>;
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -164,15 +154,19 @@ export default function Transactions() {
                   setOpenDetail(true);
                 }}
               >
-                <TableCell className="font-medium">{trx.id}</TableCell>
-                <TableCell>{trx.date}</TableCell>
-                <TableCell>{trx.customer}</TableCell>
-                <TableCell>{trx.event}</TableCell>
-                <TableCell>{trx.ticket}</TableCell>
-                <TableCell>
-                  Rp{trx.total.toLocaleString("id-ID")}
+                <TableCell className="font-medium">
+                  {trx.transaction_code}
                 </TableCell>
-                <TableCell>{trx.payment}</TableCell>
+                <TableCell>
+                  {new Date(trx.created_at).toLocaleString("id-ID")}
+                </TableCell>
+                <TableCell>{trx.customer_name}</TableCell>
+                <TableCell>{trx.event_name}</TableCell>
+                <TableCell>{trx.ticket_qty}</TableCell>
+                <TableCell>
+                  Rp{trx.total_price.toLocaleString("id-ID")}
+                </TableCell>
+                <TableCell>{trx.payment_method}</TableCell>
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded text-xs font-semibold ${

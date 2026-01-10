@@ -8,17 +8,23 @@ import Dashboard from "./pages/admin/Dashboard";
 import EventCreate from "./pages/admin/EventCreate";
 
 import AdminRoute from "./components/admin/AdminRoute";
-import NotFound from "./pages/NotFound"; // ⬅️ TAMBAHAN
+import NotFound from "./pages/NotFound"; 
+
+import TicketForm from "./components/user/TicketForm";
+
 
 function App() {
   return (
     <Routes>
-      {/* USER */}
+      {/* ================= USER ================= */}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/events/:id" element={<EventDetail />} />
 
-      {/* ADMIN (PROTECTED) */}
+      {/* 👉 FORM PEMBELIAN TIKET */}
+      <Route path="/beli-tiket" element={<TicketForm />} />
+
+      {/* ================= ADMIN (PROTECTED) ================= */}
       <Route
         path="/admin/dashboard"
         element={
@@ -37,6 +43,8 @@ function App() {
         }
       />
 
+
+      {/* ================= NOT FOUND ================= */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

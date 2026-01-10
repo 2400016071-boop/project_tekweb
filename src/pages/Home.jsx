@@ -1,7 +1,11 @@
+
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Navbar from "../components/user/Navbar";
 import EventCard from "../components/user/EventCard";
 import Footer from "../components/user/Footer";
+import EventModal from "../components/user/EventModal";
 import { useEvents } from "../hooks/useEvents";
 
 import {
@@ -14,7 +18,16 @@ import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const { events } = useEvents();
+  const navigate = useNavigate();
 
+  // 🔍 SEARCH
+  const [search, setSearch] = useState("");
+
+  // 🪟 MODAL
+  const [open, setOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // 🔎 FILTER EVENT
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -46,11 +59,34 @@ export default function Home() {
 
   return (
     <>
+
+      {/* NAVBAR */}
+      <Navbar onSearch={setSearch} />
+
+      {/* MAIN */}
       <Navbar />
+
 
       <main className="min-h-screen bg-[#F8F1EA] px-6 py-10">
         <div className="max-w-7xl mx-auto">
 
+        <div className="grid grid-cols-3 gap-6">
+          {filteredEvents.length === 0 ? (
+            <p className="col-span-3 text-center text-gray-500 mt-10">
+              ❌ Tiket yang kamu cari tidak ditemukan
+            </p>
+          ) : (
+            filteredEvents.map((event) => (
+              <EventCard
+                key={event.id}
+                event={event}
+                onOpen={() => {
+                  setSelectedEvent(event);
+                  setOpen(true);
+                }}
+              />
+            ))
+          )}
           <h1 className="text-2xl font-bold text-[#5C3A21] mb-4">
             Event Terbaru
           </h1>
@@ -95,6 +131,19 @@ export default function Home() {
       <Footer />
 
       {/* MODAL DETAIL EVENT */}
+      {open && (
+        <EventModal
+          event={selectedEvent}
+          onClose={() => {
+            setOpen(false);
+            setSelectedEvent(null);
+          }}
+          onBuy={() => {
+            setOpen(false);
+            navigate("/beli-tiket");
+          }}
+        />
+      )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-2xl p-0 overflow-hidden">
           {selectedEvent && (
