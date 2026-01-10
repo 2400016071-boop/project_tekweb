@@ -4,7 +4,7 @@ export default function EventCard({ event, onOpen }) {
   const navigate = useNavigate();
 
   return (
-    <div className="col-span-1 bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition flex flex-col">
+    <div className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition flex flex-col h-full">
       
       {/* CARD / IMAGE → BUKA MODAL */}
       <div
@@ -34,7 +34,9 @@ export default function EventCard({ event, onOpen }) {
         </div>
       </div>
 
+
       {/* BUTTON BELI TIKET → KE FORM */}
+      {/* BUTTON WHATSAPP */}
       <div className="p-4 pt-0 mt-auto">
         <button
           onClick={(e) => {

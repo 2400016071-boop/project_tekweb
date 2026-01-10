@@ -1,37 +1,55 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LoginAdminDialog from "@/components/admin/LoginAdminDialog";
+import { Menu, X } from "lucide-react";
 
-export default function Navbar({ onSearch }) { // ⬅️ TAMBAH props
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <nav className="bg-[#5C3A21] text-white px-6 py-4 shadow">
-      <div className="flex items-center justify-between">
+    <nav className="bg-[#5C3A21] text-white shadow w-full relative z-50">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        <Link to="/" className="text-lg font-bold tracking-wide">
+        <Link to="/" className="text-lg font-bold">
           Event Ticket
         </Link>
 
-        <div className="flex items-center gap-4">
+        {/* DESKTOP MENU */}
+        {!isMobile && (
+          <div className="flex items-center gap-6">
+            <Link to="/" className="hover:text-[#F3E6DB]">Home</Link>
+            <Link to="/about" className="hover:text-[#F3E6DB]">About</Link>
+            <LoginAdminDialog />
+          </div>
+        )}
 
-          <Link to="/" className="text-sm hover:text-[#F3E6DB] transition">
-            Home
-          </Link>
-
-          <Link to="/about" className="text-sm hover:text-[#F3E6DB] transition">
-            About
-          </Link>
-
-          {/* 🔍 TAMBAHAN LOGIC SEARCH */}
-          <input
-            type="text"
-            placeholder="Search event..."
-            onChange={(e) => onSearch(e.target.value)} // ⬅️ TAMBAH
-            className="w-48 px-3 py-1.5 rounded-md text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#F3E6DB]"
-          />
-
-          <LoginAdminDialog />
-
-        </div>
+        {/* HAMBURGER */}
+        {isMobile && (
+          <button onClick={() => setOpen(!open)}>
+            {open ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        )}
       </div>
+
+      {/* MOBILE MENU → KE BAWAH */}
+      {isMobile && open && (
+        <div className="bg-[#1f1f1f] flex flex-col px-6 py-4 space-y-4">
+          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
+          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+          <LoginAdminDialog />
+        </div>
+      )}
     </nav>
   );
 }
