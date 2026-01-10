@@ -1,9 +1,7 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function EventCard({ event, onOpen }) {
-  const whatsappNumber = "6281234567890";
-  const message = `Halo, saya mau beli tiket event ${event.name}`;
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  const navigate = useNavigate();
 
   return (
     <div className="col-span-1 bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition flex flex-col">
@@ -11,7 +9,7 @@ export default function EventCard({ event, onOpen }) {
       {/* CARD / IMAGE → BUKA MODAL */}
       <div
         onClick={() => onOpen(event)}
-        className="group cursor-pointer"
+        className="group cursor-pointer flex-1"
       >
         <div className="relative h-40 overflow-hidden">
           <img
@@ -36,18 +34,18 @@ export default function EventCard({ event, onOpen }) {
         </div>
       </div>
 
-      {/* BUTTON WHATSAPP (TIDAK BUKA MODAL) */}
+      {/* BUTTON BELI TIKET → KE FORM */}
       <div className="p-4 pt-0 mt-auto">
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate("/beli-tiket", { state: { event } });
+          }}
           className="block text-center w-full text-sm bg-[#6b4226] text-white py-2 rounded-md
                      hover:bg-[#56321c] transition"
         >
           Beli Tiket
-        </a>
+        </button>
       </div>
     </div>
   );
