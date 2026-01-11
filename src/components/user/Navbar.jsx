@@ -44,7 +44,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU → KE BAWAH */}
       {isMobile && open && (
-        <div className="bg-[#1f1f1f] flex flex-col px-6 py-4 space-y-4">
+        <div className="bg-[#5C3A21] flex flex-col px-6 py-4 space-y-4">
           <Link to="/" onClick={() => setOpen(false)}>Home</Link>
           <Link to="/about" onClick={() => setOpen(false)}>About</Link>
           <LoginAdminDialog />

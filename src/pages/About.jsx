@@ -1,52 +1,107 @@
+import { Instagram } from "lucide-react";
+
 export default function About() {
   return (
-    <main className="min-h-screen bg-[#F8F1EA] px-6 py-10">
-      <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow">
+    <div className="bg-[#F3E6DB] text-[#3b2a1a]">
 
-        <h1 className="text-3xl font-bold text-[#5C3A21] mb-6">
-          Tentang Event Ticket
-        </h1>
-
-        <p className="text-gray-700 mb-4 leading-relaxed">
-          Event Ticket adalah aplikasi berbasis web yang digunakan untuk
-          membantu pengguna dalam mencari dan membeli tiket konser
-          dan event musik secara online dengan mudah dan cepat.
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-6 py-16 text-center">
+        <h1 className="text-3xl font-bold mb-4">Tentang Event Ticket</h1>
+        <p className="max-w-3xl mx-auto text-base leading-relaxed">
+          Event Ticket adalah platform pemesanan tiket event yang dirancang
+          untuk memberikan kemudahan akses ke berbagai acara seperti konser,
+          seminar, dan festival dengan sistem yang aman dan terpercaya.
         </p>
+      </section>
 
-        <h2 className="text-xl font-semibold text-[#5C3A21] mt-6 mb-2">
-          Fitur Utama
-        </h2>
+      {/* FOTO EVENT */}
+      <section className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <img
+            src="https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2"
+            alt="Concert"
+            className="rounded-xl object-cover h-56 w-full"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1528605248644-14dd04022da1"
+            alt="Seminar"
+            className="rounded-xl object-cover h-56 w-full"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30"
+            alt="Festival"
+            className="rounded-xl object-cover h-56 w-full"
+          />
+        </div>
+      </section>
 
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>Pencarian event konser</li>
-          <li>Detail event dengan modal pop-up</li>
-          <li>Pembelian tiket melalui WhatsApp</li>
-          <li>Login admin untuk pengelolaan event</li>
-        </ul>
+      {/* VISI MISI */}
+      <section className="max-w-7xl mx-auto px-6 py-16 grid gap-10 md:grid-cols-2">
+        <div>
+          <h2 className="text-xl font-semibold mb-3">Visi</h2>
+          <p className="leading-relaxed">
+            Menjadi platform pemesanan tiket event digital terpercaya
+            yang menghubungkan penyelenggara dan pengunjung event
+            secara mudah dan efisien.
+          </p>
+        </div>
 
-        <h2 className="text-xl font-semibold text-[#5C3A21] mt-6 mb-2">
-          Teknologi yang Digunakan
-        </h2>
+        <div>
+          <h2 className="text-xl font-semibold mb-3">Misi</h2>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>Menyediakan sistem pemesanan tiket yang cepat dan aman</li>
+            <li>Mendukung promosi event lokal dan nasional</li>
+            <li>Meningkatkan pengalaman pengguna dalam mencari event</li>
+          </ul>
+        </div>
+      </section>
 
-        <ul className="list-disc list-inside text-gray-700 space-y-1">
-          <li>React JS</li>
-          <li>Vite</li>
-          <li>Tailwind CSS</li>
-          <li>shadcn/ui</li>
-          <li>React Router</li>
-        </ul>
+      {/* TIM PENGEMBANG (TANPA FOTO) */}
+      <section className="bg-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-2xl font-bold text-center mb-10">
+            Tim Pengembang
+          </h2>
 
-        <h2 className="text-xl font-semibold text-[#5C3A21] mt-6 mb-2">
-          Tujuan Pembuatan
-        </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                name: "Liviya Afriani Pratama",
+                role: "Frontend user",
+                ig: "https://www.instagram.com/liviya24_?igsh=MTFlcTg1OWV0aG41OQ=="
+              },
+              {
+                name: "Angraini Putri Hartadi",
+                role: "Frontend admin",
+                ig: "https://www.instagram.com/anggraenip.h?igsh=MTUza3FxNmFpYnE0NA=="
+              },
+              {
+                name: "Dyah Amarruli",
+                role: "Logic & API",
+                ig: "https://www.instagram.com/dyahamr_?igsh=MTVmNHBrNmsyZXcxNA=="
+              }
+            ].map((person, i) => (
+              <div
+                key={i}
+                className="bg-[#F3E6DB] rounded-xl shadow p-6 text-center"
+              >
+                <h3 className="font-semibold text-lg">{person.name}</h3>
+                <p className="text-sm mb-3">{person.role}</p>
 
-        <p className="text-gray-700">
-          Website ini dibuat sebagai bagian dari tugas mata kuliah
-          dan sebagai latihan dalam membangun aplikasi web modern
-          menggunakan React JS dan Tailwind CSS.
-        </p>
+                <a
+                  href={person.ig}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm hover:underline"
+                >
+                  <Instagram size={16} /> Instagram
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      </div>
-    </main>
+    </div>
   );
 }
