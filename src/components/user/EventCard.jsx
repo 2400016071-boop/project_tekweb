@@ -34,16 +34,16 @@ export default function EventCard({ event, onOpen }) {
         </div>
       </div>
 
-
-      {/* BUTTON BELI TIKET → KE FORM */}
-      {/* BUTTON WHATSAPP */}
+      {/* BUTTON BELI TIKET → PAGE FORM */}
       <div className="p-4 pt-0 mt-auto">
         <button
           onClick={(e) => {
             e.stopPropagation();
-            navigate("/beli-tiket", { state: { event } });
+            navigate(`/beli-tiket/${event.id}`, {
+              state: { event },
+            });
           }}
-          className="block text-center w-full text-sm bg-[#6b4226] text-white py-2 rounded-md
+          className="block w-full text-sm bg-[#6b4226] text-white py-2 rounded-md
                      hover:bg-[#56321c] transition"
         >
           Beli Tiket

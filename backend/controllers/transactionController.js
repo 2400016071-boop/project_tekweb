@@ -56,7 +56,7 @@ Metode Pembayaran: ${payment_method}
 Terima kasih 🙏
     `;
 
-    const whatsappNumber = "6281388609934"; // GANTI NO ADMIN
+    const whatsappNumber = "6281388609934"; // NO ADMIN
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
       message
     )}`;

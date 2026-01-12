@@ -2,12 +2,34 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 
-// POST transaksi via WhatsApp
-router.post("/whatsapp", (req, res) => {
-  const { customer_name, phone, event_name, ticket_qty, total_payment } =
-    req.body;
+// ===============================
+// POST TRANSAKSI
+// URL: http://localhost:3000/transactions
+// ===============================
+router.post("/", (req, res) => {
+  console.log("🔥 DATA MASUK:", req.body);
 
-  // generate ID transaksi
+  const {
+    customer_name,
+    phone,
+    event_name,
+    ticket_qty,
+    total_payment
+  } = req.body;
+
+  // VALIDASI
+  if (
+    !customer_name ||
+    !phone ||
+    !event_name ||
+    !ticket_qty ||
+    !total_payment
+  ) {
+    return res.status(400).json({
+      message: "Data tidak lengkap"
+    });
+  }
+
   const transactionId = "TRX-" + Date.now();
 
   const sql = `
@@ -25,24 +47,39 @@ router.post("/whatsapp", (req, res) => {
     total_payment,
     "Menunggu",
     "WhatsApp",
-    "Transfer",
+    "Transfer"
   ];
 
   db.query(sql, values, (err) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Gagal simpan transaksi" });
+      console.error("❌ ERROR MYSQL:", err);
+      return res.status(500).json({
+        message: "Gagal simpan transaksi"
+      });
     }
 
-    const whatsappUrl = `https://wa.me/6281388609934?text=${encodeURIComponent(
-      `Halo Admin, saya ingin konfirmasi pembayaran.\n\nID Transaksi: ${transactionId}`
-    )}`;
-
     res.json({
-      transaction_id: transactionId,
-      whatsapp_url: whatsappUrl,
+      message: "Transaksi berhasil",
+      transaction_id: transactionId
     });
   });
+});
+
+// ===============================
+// GET SEMUA TRANSAKSI (CEK MYSQL)
+// URL: http://localhost:3000/transactions
+// ===============================
+router.get("/", (req, res) => {
+  db.query(
+    "SELECT * FROM transactions ORDER BY created_at DESC",
+    (err, rows) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json(err);
+      }
+      res.json(rows);
+    }
+  );
 });
 
 module.exports = router;

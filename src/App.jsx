@@ -1,53 +1,33 @@
 import { Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import EventDetail from "./pages/EventDetail";
 import About from "./pages/About";
+import TicketForm from "./components/user/TicketForm";
+import NotFound from "./pages/NotFound";
 
+// ADMIN
 import Dashboard from "./pages/admin/Dashboard";
 import EventCreate from "./pages/admin/EventCreate";
-
+import AdminTransactions from "./pages/admin/AdminTransactions";
 import AdminRoute from "./components/admin/AdminRoute";
-import NotFound from "./pages/NotFound"; 
 
-import TicketForm from "./components/user/TicketForm";
-
-
-function App() {
+export default function App() {
   return (
     <Routes>
-      {/* ================= USER ================= */}
+      {/* USER */}
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/events/:id" element={<EventDetail />} />
+      <Route path="/beli-tiket/:id" element={<TicketForm />} />
 
-      {/* 👉 FORM PEMBELIAN TIKET */}
-      <Route path="/beli-tiket" element={<TicketForm />} />
+      {/* ADMIN (NESTED ROUTES) */}
+      <Route path="/admin" element={<AdminRoute />}>
+        <Route index element={<Dashboard />} />
+        <Route path="event-create" element={<EventCreate />} />
+        <Route path="transactions" element={<AdminTransactions />} />
+      </Route>
 
-      {/* ================= ADMIN (PROTECTED) ================= */}
-      <Route
-        path="/admin/dashboard"
-        element={
-          <AdminRoute>
-            <Dashboard />
-          </AdminRoute>
-        }
-      />
-
-      <Route
-        path="/admin/events/create"
-        element={
-          <AdminRoute>
-            <EventCreate />
-          </AdminRoute>
-        }
-      />
-
-
-      {/* ================= NOT FOUND ================= */}
+      {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
-
-export default App;
