@@ -1,16 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 
+const transactionsRoute = require("./routes/transactions");
+
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// routes
-const transactionRoutes = require("./routes/transactions");
-app.use("/api/transactions", transactionRoutes);
+// ROUTE UTAMA
+app.use("/transactions", transactionsRoute);
 
-app.listen(PORT, () => {
-  console.log(`Backend jalan di http://localhost:${PORT}`);
+app.get("/", (req, res) => {
+  res.send("Backend Event Ticket Jalan 🚀");
+});
+
+app.listen(3000, () => {
+  console.log("Backend jalan di http://localhost:3000");
 });

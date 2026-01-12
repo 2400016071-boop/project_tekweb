@@ -16,30 +16,45 @@ export default function EventCreate() {
     description: "",
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // VALIDASI WAJIB
+    // ✅ VALIDASI WAJIB
     if (!form.name || !form.date || !form.location) {
       alert("Nama, tanggal, dan lokasi wajib diisi");
       return;
     }
 
-    addEvent({
-      name: form.name,
-      date: form.date,
-      price: Number(form.price),
-      quota: Number(form.quota),
-      location: form.location,
-      image:
-        form.image && form.image.trim() !== ""
-          ? form.image
-          : "https://via.placeholder.com/400x250?text=No+Image",
-      description: form.description,
-    });
+    try {
+      await addEvent({
+        name: form.name,
+        date: form.date,
+        price: Number(form.price),
+        quota: Number(form.quota),
+        location: form.location,
+        image:
+          form.image && form.image.trim() !== ""
+            ? form.image
+            : "https://via.placeholder.com/400x250?text=No+Image",
+        description: form.description,
+      });
 
-    navigate("/admin/dashboard");
-;
+      // reset form (opsional tapi rapi)
+      setForm({
+        name: "",
+        date: "",
+        price: "",
+        quota: "",
+        location: "",
+        image: "",
+        description: "",
+      });
+
+      navigate("/admin/dashboard");
+    } catch (error) {
+      alert("Gagal menambahkan event");
+      console.error(error);
+    }
   };
 
   return (
@@ -51,6 +66,7 @@ export default function EventCreate() {
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           placeholder="Nama Event"
+          value={form.name}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
@@ -59,6 +75,7 @@ export default function EventCreate() {
 
         <input
           type="date"
+          value={form.date}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, date: e.target.value })
@@ -68,6 +85,7 @@ export default function EventCreate() {
         <input
           type="number"
           placeholder="Harga Tiket"
+          value={form.price}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, price: e.target.value })
@@ -77,6 +95,7 @@ export default function EventCreate() {
         <input
           type="number"
           placeholder="Kuota"
+          value={form.quota}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, quota: e.target.value })
@@ -85,6 +104,7 @@ export default function EventCreate() {
 
         <input
           placeholder="Lokasi Event"
+          value={form.location}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, location: e.target.value })
@@ -93,6 +113,7 @@ export default function EventCreate() {
 
         <input
           placeholder="URL Image (opsional)"
+          value={form.image}
           className="w-full border px-3 py-2 rounded"
           onChange={(e) =>
             setForm({ ...form, image: e.target.value })
@@ -102,13 +123,17 @@ export default function EventCreate() {
         <textarea
           placeholder="Detail / Deskripsi Event"
           rows="4"
+          value={form.description}
           className="w-full border px-3 py-2 rounded resize-none"
           onChange={(e) =>
             setForm({ ...form, description: e.target.value })
           }
         />
 
-        <button className="w-full bg-[#5C3A21] text-white py-2 rounded hover:bg-[#8B5E3C] transition">
+        <button
+          type="submit"
+          className="w-full bg-[#5C3A21] text-white py-2 rounded hover:bg-[#8B5E3C] transition"
+        >
           Simpan Event
         </button>
       </form>

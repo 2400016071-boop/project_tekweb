@@ -1,66 +1,131 @@
-import { useState } from "react";
-import Navbar from "../../components/user/Navbar";
-import Footer from "../../components/user/Footer";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 export default function TicketForm() {
-  const [name, setName] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [event, setEvent] = useState(null);
+  const [customerName, setCustomerName] = useState("");
   const [phone, setPhone] = useState("");
   const [qty, setQty] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
-  // ✅ DATA EVENT (sementara hardcode)
-  const eventName = "Nama Event Kamu";
+  // ===============================
+  // AMBIL DATA EVENT
+  // ===============================
+  useEffect(() => {
+    fetch(`https://694a3d921282f890d2d80668.mockapi.io/events/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEvent(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setEvent(null);
+        setLoading(false);
+      });
+  }, [id]);
 
-  const price = 50000;
-  const total = price * qty;
+  // ===============================
+  // LOADING
+  // ===============================
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen flex items-center justify-center">
+          <p>Loading...</p>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
+  // ===============================
+  // EVENT TIDAK DITEMUKAN
+  // ===============================
+  if (!event) {
+    return (
+      <>
+        <Navbar />
+        <main className="min-h-screen flex items-center justify-center">
+          <p>Event tidak ditemukan</p>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
+  const total = event.price * qty;
   const whatsappNumber = "6281388609934";
 
-  const handleSubmit = async () => {
-    if (!name || !phone) return;
+  // ===============================
+  // VALIDASI FORM
+  // ===============================
+  const isFormValid =
+    customerName.trim() !== "" &&
+    phone.trim() !== "" &&
+    qty >= 1 &&
+    !submitting;
 
-    setLoading(true);
+  // ===============================
+  // SUBMIT FORM
+  // ===============================
+  const handleSubmit = async () => {
+    if (!isFormValid) return;
+
+    setSubmitting(true);
 
     try {
-      // 1️⃣ SIMPAN KE BACKEND
-      const res = await fetch("http://localhost:3000/api/tickets", {
+      const res = await fetch("http://localhost:3000/transactions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          phone,
-          qty,
-          total,
-          eventName,
+          customer_name: customerName,
+          phone: phone,
+          event_name: event.name,
+          ticket_qty: qty,
+          total_payment: total,
         }),
       });
 
-      if (!res.ok) throw new Error("Gagal simpan data");
+      const data = await res.json();
 
-      // 2️⃣ PESAN WHATSAPP
+      if (!res.ok) {
+        alert("Gagal menyimpan transaksi");
+        setSubmitting(false);
+        return;
+      }
+
+      // ===============================
+      // BUKA WHATSAPP SETELAH DB OK
+      // ===============================
       const message = `
 Halo, saya mau beli tiket.
 
-Event: ${eventName}
-Nama: ${name}
+ID Transaksi: ${data.transaction_id}
+Event: ${event.name}
+Nama: ${customerName}
 No WhatsApp: ${phone}
 Jumlah Tiket: ${qty}
 Total Harga: Rp ${total.toLocaleString("id-ID")}
       `;
 
-      // 3️⃣ REDIRECT KE WA
-      const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-        message
-      )}`;
-
-      window.open(whatsappLink, "_blank");
+      window.open(
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+        "_blank"
+      );
     } catch (error) {
       console.error(error);
-      alert("Gagal menyimpan data!");
+      alert("Server error");
     } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -74,10 +139,7 @@ Total Harga: Rp ${total.toLocaleString("id-ID")}
             Form Pembelian Tiket
           </h1>
 
-          {/* NAMA EVENT */}
-          <p className="text-sm text-gray-600">
-            Event: <span className="font-semibold">{eventName}</span>
-          </p>
+          <p className="text-sm text-gray-600">{event.name}</p>
 
           {/* NAMA */}
           <div>
@@ -85,12 +147,12 @@ Total Harga: Rp ${total.toLocaleString("id-ID")}
             <input
               type="text"
               className="w-full border rounded-md px-3 py-2 mt-1 text-sm"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
             />
           </div>
 
-          {/* WHATSAPP */}
+          {/* NO WA */}
           <div>
             <label className="text-sm">Nomor WhatsApp</label>
             <input
@@ -122,17 +184,26 @@ Total Harga: Rp ${total.toLocaleString("id-ID")}
           </div>
 
           {/* BUTTON */}
-          <button
-            onClick={handleSubmit}
-            disabled={!name || !phone || loading}
-            className={`w-full py-2 rounded-md text-white transition ${
-              !name || !phone || loading
-                ? "bg-gray-400"
-                : "bg-[#6b4226] hover:bg-[#56321c]"
-            }`}
-          >
-            {loading ? "Memproses..." : "Lanjut ke WhatsApp"}
-          </button>
+          <div className="flex justify-between gap-2">
+            <button
+              onClick={() => navigate(-1)}
+              className="border px-4 py-2 rounded-md text-sm"
+            >
+              Kembali
+            </button>
+
+            <button
+              onClick={handleSubmit}
+              disabled={!isFormValid}
+              className={`px-4 py-2 rounded-md text-sm text-white transition ${
+                isFormValid
+                  ? "bg-[#6b4226] hover:bg-[#56321c]"
+                  : "bg-gray-400 cursor-not-allowed"
+              }`}
+            >
+              {submitting ? "Memproses..." : "Lanjut ke WhatsApp"}
+            </button>
+          </div>
         </div>
       </main>
 

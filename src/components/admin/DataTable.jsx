@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   TableHeader,
@@ -25,6 +26,8 @@ import {
 } from "@/components/ui/pagination";
 
 export default function DataTable({ events, onDelete, onEdit, onTambah }) {
+  const navigate = useNavigate();
+
   const [openDelete, setOpenDelete] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [search, setSearch] = useState("");
@@ -52,7 +55,7 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
   return (
     <>
       <div className="bg-white rounded-xl shadow">
-        {/* Header */}
+        {/* HEADER */}
         <div className="p-4 flex justify-between items-center border-b">
           <h2 className="font-semibold text-[#5C3A21]">Data Event</h2>
           <div className="flex items-center gap-2">
@@ -71,7 +74,7 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
           </div>
         </div>
 
-        {/* Table */}
+        {/* TABLE */}
         <Table>
           <TableHeader>
             <TableRow>
@@ -87,10 +90,7 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
           <TableBody>
             {paginatedEvents.length === 0 ? (
               <TableRow>
-                <TableCell
-                  colSpan={6}
-                  className="text-center py-6 text-gray-500"
-                >
+                <TableCell colSpan={6} className="text-center py-6 text-gray-500">
                   Event tidak ditemukan
                 </TableCell>
               </TableRow>
@@ -107,14 +107,22 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                   <TableCell>{event.name}</TableCell>
                   <TableCell>{event.date}</TableCell>
                   <TableCell>
-                    Rp {Number(event.price).toLocaleString()}
+                    Rp {Number(event.price).toLocaleString("id-ID")}
                   </TableCell>
                   <TableCell>{event.quota}</TableCell>
+
+                  {/* 🔥 AKSI */}
                   <TableCell className="text-center space-x-2">
-                    <Button variant="outline" onClick={() => onEdit(event)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => onEdit(event)}
+                    >
                       Edit
                     </Button>
+
                     <Button
+                      size="sm"
                       variant="destructive"
                       onClick={() => {
                         setSelectedEvent(event);
@@ -123,6 +131,15 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                     >
                       Hapus
                     </Button>
+
+                    {/* 🔥 TOMBOL BELI TIKET (FIX UTAMA) */}
+                    <Button
+                      size="sm"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                      onClick={() => navigate(`/beli-tiket/${event.id}`)}
+                    >
+                      Beli Tiket
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))
@@ -130,7 +147,7 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
           </TableBody>
         </Table>
 
-        {/* Pagination */}
+        {/* PAGINATION */}
         {totalPages > 1 && (
           <div className="p-4 border-t">
             <Pagination>
@@ -140,14 +157,18 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
                   />
                 </PaginationItem>
+
                 <PaginationItem>
                   <span className="px-4 text-sm text-muted-foreground">
                     Halaman {page} dari {totalPages}
                   </span>
                 </PaginationItem>
+
                 <PaginationItem>
                   <PaginationNext
-                    onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+                    onClick={() =>
+                      setPage((p) => Math.min(p + 1, totalPages))
+                    }
                   />
                 </PaginationItem>
               </PaginationContent>
@@ -156,7 +177,7 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
         )}
       </div>
 
-      {/* Dialog Hapus */}
+      {/* DIALOG HAPUS */}
       <Dialog open={openDelete} onOpenChange={setOpenDelete}>
         <DialogContent>
           <DialogHeader>

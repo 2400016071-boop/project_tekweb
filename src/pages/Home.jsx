@@ -1,11 +1,9 @@
-
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/user/Navbar";
 import EventCard from "../components/user/EventCard";
 import Footer from "../components/user/Footer";
-import EventModal from "../components/user/EventModal";
 import { useEvents } from "../hooks/useEvents";
 
 import {
@@ -20,32 +18,22 @@ export default function Home() {
   const { events } = useEvents();
   const navigate = useNavigate();
 
-  // 🔍 SEARCH
+  // SEARCH
   const [search, setSearch] = useState("");
 
-  // 🪟 MODAL
+  // MODAL
   const [open, setOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  // 🔎 FILTER EVENT
-  const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  // JUMLAH KOLOM RESPONSIF (AMAN)
+  // RESPONSIVE GRID
   const [columns, setColumns] = useState(1);
 
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-
-      if (width >= 1024) {
-        setColumns(3); // Desktop
-      } else if (width >= 640) {
-        setColumns(2); // Tablet
-      } else {
-        setColumns(1); // Mobile
-      }
+      if (width >= 1024) setColumns(3);
+      else if (width >= 640) setColumns(2);
+      else setColumns(1);
     };
 
     handleResize();
@@ -59,34 +47,10 @@ export default function Home() {
 
   return (
     <>
-
-      {/* NAVBAR */}
       <Navbar onSearch={setSearch} />
-
-      {/* MAIN */}
-      <Navbar />
-
 
       <main className="min-h-screen bg-[#F8F1EA] px-6 py-10">
         <div className="max-w-7xl mx-auto">
-
-        <div className="grid grid-cols-3 gap-6">
-          {filteredEvents.length === 0 ? (
-            <p className="col-span-3 text-center text-gray-500 mt-10">
-              ❌ Tiket yang kamu cari tidak ditemukan
-            </p>
-          ) : (
-            filteredEvents.map((event) => (
-              <EventCard
-                key={event.id}
-                event={event}
-                onOpen={() => {
-                  setSelectedEvent(event);
-                  setOpen(true);
-                }}
-              />
-            ))
-          )}
           <h1 className="text-2xl font-bold text-[#5C3A21] mb-4">
             Event Terbaru
           </h1>
@@ -100,7 +64,7 @@ export default function Home() {
             className="mb-6 w-full md:w-1/3 px-4 py-2 rounded-md text-sm border focus:outline-none"
           />
 
-          {/* GRID EVENT (RESPONSIF MANUAL) */}
+          {/* GRID EVENT */}
           <div
             className="grid gap-6"
             style={{
@@ -124,26 +88,12 @@ export default function Home() {
               ))
             )}
           </div>
-
         </div>
       </main>
 
       <Footer />
 
       {/* MODAL DETAIL EVENT */}
-      {open && (
-        <EventModal
-          event={selectedEvent}
-          onClose={() => {
-            setOpen(false);
-            setSelectedEvent(null);
-          }}
-          onBuy={() => {
-            setOpen(false);
-            navigate("/beli-tiket");
-          }}
-        />
-      )}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="max-w-2xl p-0 overflow-hidden">
           {selectedEvent && (
@@ -176,14 +126,13 @@ export default function Home() {
                   {selectedEvent.description}
                 </p>
 
+                {/* 🔥 INI YANG PENTING */}
                 <Button
                   className="mt-6 w-full bg-[#5C3A21] hover:bg-[#6b4226]"
-                  onClick={() =>
-                    window.open(
-                      `https://wa.me/6281234567890?text=Saya ingin beli tiket ${selectedEvent.name}`,
-                      "_blank"
-                    )
-                  }
+                  onClick={() => {
+                    setOpen(false);
+                    navigate(`/beli-tiket/${selectedEvent.id}`);
+                  }}
                 >
                   Beli Tiket
                 </Button>
