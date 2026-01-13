@@ -1,5 +1,6 @@
 import { Instagram, Twitter, Facebook, Mail, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const [columns, setColumns] = useState(1);
@@ -10,11 +11,11 @@ export default function Footer() {
       const width = window.innerWidth;
 
       if (width >= 1024) {
-        setColumns(4); // Desktop
+        setColumns(4);
       } else if (width >= 640) {
-        setColumns(2); // Tablet
+        setColumns(2);
       } else {
-        setColumns(1); // Mobile
+        setColumns(1);
       }
     };
 
@@ -61,11 +62,28 @@ export default function Footer() {
         <div>
           <h3 className="font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm">
-            <li>Home</li>
-            <li>About Us</li>
-            <li>All Events</li>
-            <li>Partner with Us</li>
-            <li>Contact Support</li>
+            <li>
+              <Link to="/" className="hover:underline">
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/about" className="hover:underline">
+                About Us
+              </Link>
+            </li>
+
+            <li>
+              <a
+                href="https://wa.me/6285773404230"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Contact Support
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -77,7 +95,7 @@ export default function Footer() {
               <Mail size={16} /> supporteventticket@gmail.com
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={16} /> +62 21 555 0123
+              <Phone size={16} /> +62 857-7340-4230
             </li>
             <li>
               Jl. Ring Road Selatan, Yogyakarta, 55191
