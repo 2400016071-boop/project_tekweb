@@ -110,8 +110,6 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                     Rp {Number(event.price).toLocaleString("id-ID")}
                   </TableCell>
                   <TableCell>{event.quota}</TableCell>
-
-                  {/* 🔥 AKSI */}
                   <TableCell className="text-center space-x-2">
                     <Button
                       size="sm"
@@ -120,7 +118,6 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                     >
                       Edit
                     </Button>
-
                     <Button
                       size="sm"
                       variant="destructive"
@@ -130,15 +127,6 @@ export default function DataTable({ events, onDelete, onEdit, onTambah }) {
                       }}
                     >
                       Hapus
-                    </Button>
-
-                    {/* 🔥 TOMBOL BELI TIKET (FIX UTAMA) */}
-                    <Button
-                      size="sm"
-                      className="bg-green-600 hover:bg-green-700 text-white"
-                      onClick={() => navigate(`/beli-tiket/${event.id}`)}
-                    >
-                      Beli Tiket
                     </Button>
                   </TableCell>
                 </TableRow>
